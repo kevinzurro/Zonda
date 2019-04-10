@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Zonda.  If not, see <https://www.gnu.org/licenses/>.
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __licencia__ = 'GPLv3'
 __autor__ = 'Eduardo Di Loreto'
 __autor_email__ = 'efdiloreto@gmail.com'
