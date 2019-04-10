@@ -2,7 +2,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/efdiloreto/Zonda.svg)](https://github.com/efdiloreto/Zonda/issues)
 [![Donar](https://img.shields.io/badge/donar-!-blue.svg?longCache=true&style=flat-square)](#donar)
 
-![Alt text](zonda/gui/recursos/imagenes/zonda.png?raw=true "Title")
+![Alt text](zonda/recursos/imagenes/zonda.png?raw=true "Title")
 
 Zonda es un software para cálcular las cargas de viento sobre las estructuras de acuerdo al Reglamento Argentino CIRSOC 102-2005.
 
