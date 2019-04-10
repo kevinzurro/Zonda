@@ -18,19 +18,20 @@
 import sys
 import os
 from cx_Freeze import setup, Executable
-from gui import __about__, CARPETA_ICONOS, LICENCIA
+from zonda import __about__, recursos
 
 
 build_exe_opciones = dict(
     packages=[
-        'numpy.core._methods', 'numpy.lib.format', 'asyncio', 'jinja2'
+        'numpy.core._methods', 'numpy.lib.format', 'jinja2', 'six', 'appdirs',
+        'packaging', 'asyncio'
     ],
     excludes=[
         'tkinter', 'PyQt5.QtBluetooth', 'PyQt5.QtNetwork', 'PyQt5.QtNfc',
         'PyQt5.QtWebChannel', 'PyQt5.QtWebSockets', 'PyQt5.QtWebEngineCore'
         'PyQt5.QtSql', 'PyQt5.QtNetwork', 'PyQt5.QtScript'
     ],
-    include_files=[LICENCIA],
+    include_files=[recursos.LICENCIA],
     optimize=2,
 )
 
@@ -39,10 +40,10 @@ if sys.platform == 'win32':
     base = 'Win32GUI'
 
 target = Executable(
-    script='main.py',
+    script='zonda/main.py',
     base=base,
     targetName='Zonda.exe',
-    icon=os.path.join(CARPETA_ICONOS, 'zonda.ico'),
+    icon=os.path.join(recursos.CARPETA_ICONOS, 'zonda.ico'),
     copyright=__about__.__autor__
 )
 
