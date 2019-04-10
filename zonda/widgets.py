@@ -20,9 +20,9 @@ from functools import partial
 from tempfile import NamedTemporaryFile
 from PyQt5 import QtWidgets, QtCore, QtWebEngineWidgets, QtGui
 from PyQt5.QtPrintSupport import QPrinter, QPageSetupDialog
-import excepciones, dialogos, recursos, reportes
-from cirsoc import Edificio, CubiertaAislada, Cartel
-from cirsoc import excepciones as cirsoc_excepciones
+from zonda import excepciones, dialogos, recursos, reportes
+from zonda.cirsoc import Edificio, CubiertaAislada, Cartel
+from zonda.cirsoc import excepciones as cirsoc_excepciones
 
 
 class WidgetViento(QtWidgets.QWidget):

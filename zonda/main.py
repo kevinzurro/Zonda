@@ -17,7 +17,7 @@
 
 import sys
 from PyQt5 import QtWidgets
-from ventanas import VentanaPrincipal
+from zonda.ventanas import VentanaPrincipal
 
 
 def main():

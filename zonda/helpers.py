@@ -18,7 +18,7 @@
 import json
 from pkg_resources import parse_version
 from PyQt5 import QtCore, QtNetwork
-import __about__
+from zonda import __about__
 
 
 def hyperlink(link, texto):

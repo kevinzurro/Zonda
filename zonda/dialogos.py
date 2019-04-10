@@ -18,7 +18,7 @@
 import os
 import webbrowser
 from PyQt5 import QtWidgets, QtCore, QtGui
-import widgets, excepciones, __about__, recursos, helpers
+from zonda import widgets, excepciones, __about__, recursos, helpers
 
 
 class Gracias(QtWidgets.QDialog):
@@ -96,7 +96,9 @@ class AcercaDe(QtWidgets.QDialog):
             label.setOpenExternalLinks(True)
 
         boton_licencia = QtWidgets.QPushButton('Licencia')
-        boton_licencia.clicked.connect(self._abrir_licencia)
+        boton_licencia.clicked.connect(
+            lambda: webbrowser.open('https://www.gnu.org/licenses/gpl-3.0-standalone.html')
+        )
 
         boton_donar = QtWidgets.QPushButton('Donar')
         boton_donar.clicked.connect(
@@ -138,14 +140,6 @@ class AcercaDe(QtWidgets.QDialog):
         self.setWindowTitle('Acerca de Zonda')
         self.setLayout(layout)
         self.exec_()
-
-    def _abrir_licencia(self):
-        try:
-            os.startfile(recursos.LICENCIA)
-        except FileNotFoundError:
-            QtWidgets.QMessageBox.warning(
-                self, 'Error', 'Archivo no encontrado.'
-            )
 
 
 class DialogoComponentes(QtWidgets.QDialog):

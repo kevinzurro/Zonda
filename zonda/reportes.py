@@ -18,7 +18,7 @@
 import os
 import gettext
 from jinja2 import Environment, FileSystemLoader
-from recursos import CARPETA_PLANTILLAS, CARPETA_CSS
+from zonda import recursos
 from pint import UnitRegistry
 
 ureg = UnitRegistry()
@@ -35,15 +35,15 @@ def unidad_html(unidad):
     return f'{ureg(unidad).units:~H}'
 
 
-file_loader = FileSystemLoader(CARPETA_PLANTILLAS)
+file_loader = FileSystemLoader(recursos.CARPETA_PLANTILLAS)
 env = Environment(loader=file_loader, extensions=['jinja2.ext.i18n'])
 env.globals.update(zip=zip)
 env.install_gettext_callables(gettext.gettext, gettext.ngettext)
 env.filters['convertir'] = convertir
 env.filters['unidad_html'] = unidad_html
 
-env.globals['SemanticCSS'] = os.path.join(CARPETA_CSS, 'semantic.min.css')
-env.globals['CustomCSS'] = os.path.join(CARPETA_CSS, 'custom.css')
+env.globals['SemanticCSS'] = os.path.join(recursos.CARPETA_CSS, 'semantic.min.css')
+env.globals['CustomCSS'] = os.path.join(recursos.CARPETA_CSS, 'custom.css')
 
 
 def reporte(plantilla, **kwargs):

@@ -17,7 +17,7 @@
 
 import numpy as np
 from cached_property import cached_property
-from cirsoc import excepciones
+from zonda.cirsoc import excepciones
 
 
 class CubiertaAisladaDosAguas:

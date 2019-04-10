@@ -17,7 +17,7 @@
 
 import os
 from PyQt5 import QtWidgets, QtGui, QtCore
-import widgets, dialogos, __about__, recursos, helpers
+from zonda import widgets, dialogos, __about__, recursos, helpers
 
 
 class VentanaPrincipal(QtWidgets.QMainWindow):

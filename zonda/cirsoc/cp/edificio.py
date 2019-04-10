@@ -19,7 +19,7 @@ from collections import defaultdict
 from math import log10
 import numpy as np
 from cached_property import cached_property
-from cirsoc import excepciones
+from zonda.cirsoc import excepciones
 
 
 def dedupe(items):
