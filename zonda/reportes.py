@@ -37,12 +37,13 @@ def unidad_html(unidad):
 
 file_loader = FileSystemLoader(recursos.CARPETA_PLANTILLAS)
 env = Environment(loader=file_loader, extensions=['jinja2.ext.i18n'])
-env.globals.update(zip=zip)
+env.globals.update(zip=zip, all=all)
 env.install_gettext_callables(gettext.gettext, gettext.ngettext)
 env.filters['convertir'] = convertir
 env.filters['unidad_html'] = unidad_html
 
 env.globals['SemanticCSS'] = os.path.join(recursos.CARPETA_CSS, 'semantic.min.css')
+env.globals['IconosCSS'] = os.path.join(recursos.CARPETA_CSS, 'icon.min.css')
 env.globals['CustomCSS'] = os.path.join(recursos.CARPETA_CSS, 'custom.css')
 
 

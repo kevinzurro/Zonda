@@ -126,6 +126,10 @@ class Edificio:
         return AreasEdificio(*aberturas)
 
     @cached_property
+    def areas_totales(self):
+        return sum(self.areas)
+
+    @cached_property
     def aberturas_totales(self):
         return sum(self.aberturas)
 
@@ -154,6 +158,71 @@ class Edificio:
             self.cubierta.altura_alero, self.cubierta.altura_media
         )
         return alturas
+
+    @cached_property
+    def a0i(self):
+        return tuple(
+            self.aberturas_totales - abertura for abertura in self.aberturas[:-1]
+        )
+
+    @cached_property
+    def agi(self):
+        return tuple(
+            self.areas_totales - area for area in self.areas[:-1]
+        )
+
+    @cached_property
+    def min_areas(self):
+        return tuple(min(0.4, 0.01 * area) for area in self.areas[:-1])
+
+    @cached_property
+    def cerramiento_condicion_1(self):
+        """Chequea para cada pared si su abertura supera el 80% del area.
+
+        :returns: Tuple con booleanos para cada pared.
+        """
+        return tuple(
+            abertura >= 0.8 * area for abertura, area in
+            zip(self.aberturas[:-1], self.areas[:-1])
+        )
+
+    @cached_property
+    def cerramiento_condicion_2(self):
+        """Chequea si el área total de aberturas en una pared que recibe
+        presión externa positiva excede la  suma  de  las  áreas  de  aberturas
+        en  el  resto  de  la  envolvente  del  edificio  (paredes y cubierta)
+        en más del 10%.
+
+        :returns: Tuple con booleanos para cada pared.
+        """
+        return tuple(
+            abertura > 1.1 * area for abertura, area in
+            zip(self.aberturas[:-1], self.a0i)
+        )
+
+    @cached_property
+    def cerramiento_condicion_3(self):
+        """Chequea si el área total de aberturas en una pared que recibe presión
+        externa positiva excede el  valor  menor  entre  0,4  m2  ó  el  1%  del
+        área  de  dicha  pared.
+
+        :returns: Tuple con booleanos para cada pared.
+        """
+        return tuple(
+            abertura > area for abertura, area in
+            zip(self.aberturas[:-1], self.min_areas[:-1])
+        )
+
+    @cached_property
+    def cerramiento_condicion_4(self):
+        """Chequea si el  porcentaje  de  aberturas en el resto de
+        la envolvente del edificio no excede el 20%.
+
+        :returns: Tuple con booleanos para cada pared.
+        """
+        return tuple(
+            abertura / area <= 0.2 for abertura, area in zip(self.a0i, self.agi)
+        )
 
     def __repr__(self):
         return f'<{self.__name__}(longitud={self.longitud}, ancho={self.ancho},' \

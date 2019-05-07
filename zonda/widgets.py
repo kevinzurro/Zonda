@@ -22,6 +22,7 @@ from PyQt5 import QtWidgets, QtCore, QtWebEngineWidgets, QtGui
 from PyQt5.QtPrintSupport import QPrinter, QPageSetupDialog
 from zonda import excepciones, dialogos, recursos, reportes
 from zonda.cirsoc import Edificio, CubiertaAislada, Cartel
+from zonda.cirsoc.geometria import edificios
 from zonda.cirsoc import excepciones as cirsoc_excepciones
 
 
@@ -645,6 +646,9 @@ class WidgetCubiertaAislada(QtWidgets.QWidget):
 
 
 class WidgetEdificio(QtWidgets.QWidget):
+
+    reporte_actualizado = QtCore.pyqtSignal(str)
+
     def __init__(self):
         super().__init__()
 
@@ -713,6 +717,9 @@ class WidgetEdificio(QtWidgets.QWidget):
             ('Cerrado', 'Parcialmente Cerrado')
         )
 
+        boton_calcular_cerramiento = QtWidgets.QPushButton('Verificar cerramiento')
+        boton_calcular_cerramiento.clicked.connect(self.reporte_cerramiento)
+
         self._checkbox_unico_volumen = QtWidgets.QCheckBox(
             'El edificio es un único volumen sin particionar'
         )
@@ -774,10 +781,11 @@ class WidgetEdificio(QtWidgets.QWidget):
         self._grid_layout_geometria.addWidget(self._imagen, 0, 3, 10, 1)
         self._grid_layout_geometria.addWidget(boton_componentes, 11, 0)
 
-        layout_cerramiento = QtWidgets.QHBoxLayout()
-        layout_cerramiento.addWidget(QtWidgets.QLabel('Clasificación'))
-        layout_cerramiento.addWidget(self._combobox_cerramiento)
-        layout_cerramiento.addStretch()
+        layout_cerramiento = QtWidgets.QGridLayout()
+        layout_cerramiento.addWidget(QtWidgets.QLabel('Clasificación'), 0, 0)
+        layout_cerramiento.addWidget(self._combobox_cerramiento, 0, 1)
+        layout_cerramiento.addWidget(boton_calcular_cerramiento, 1, 0, 1, 2)
+        layout_cerramiento.setRowStretch(2, 1)
 
         grid_layout_aberturas = QtWidgets.QGridLayout()
         for i, (key, spinbox) in enumerate(self._spinboxs_aberturas.items()):
@@ -893,6 +901,16 @@ class WidgetEdificio(QtWidgets.QWidget):
             **resultados_spinboxs,
         )
         return datos
+
+    def reporte_cerramiento(self):
+        try:
+            edificio = edificios(**self())
+            reporte_str = reportes.reporte(
+                'cerramiento.html', edificio=edificio
+            )
+            self.reporte_actualizado.emit(reporte_str)
+        except excepciones.ErrorEstructura as error:
+            QtWidgets.QMessageBox.warning(self, 'Error de Datos de Entrada', str(error))
 
     def __call__(self):
         return self.datos()
@@ -1131,6 +1149,7 @@ class WidgetPrincipal(QtWidgets.QWidget):
         boton_calcular.setFlat(True)
 
         self._estructura.reporte_actualizado.connect(resultados.reporte.setear_html)
+        self._estructura.estructura._estructuras.currentWidget().reporte_actualizado.connect(resultados.reporte.setear_html)
 
         resultados.reporte.calculos_terminados.connect(self.parent.label_calculos.setText)
 
