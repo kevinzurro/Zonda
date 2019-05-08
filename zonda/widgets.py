@@ -717,7 +717,7 @@ class WidgetEdificio(QtWidgets.QWidget):
             ('Cerrado', 'Parcialmente Cerrado')
         )
 
-        boton_calcular_cerramiento = QtWidgets.QPushButton('Verificar cerramiento')
+        boton_calcular_cerramiento = QtWidgets.QPushButton('Verificar')
         boton_calcular_cerramiento.clicked.connect(self.reporte_cerramiento)
 
         self._checkbox_unico_volumen = QtWidgets.QCheckBox(
@@ -784,8 +784,8 @@ class WidgetEdificio(QtWidgets.QWidget):
         layout_cerramiento = QtWidgets.QGridLayout()
         layout_cerramiento.addWidget(QtWidgets.QLabel('Clasificación'), 0, 0)
         layout_cerramiento.addWidget(self._combobox_cerramiento, 0, 1)
-        layout_cerramiento.addWidget(boton_calcular_cerramiento, 1, 0, 1, 2)
-        layout_cerramiento.setRowStretch(2, 1)
+        layout_cerramiento.addWidget(boton_calcular_cerramiento, 0, 2)
+        layout_cerramiento.setColumnStretch(3, 1)
 
         grid_layout_aberturas = QtWidgets.QGridLayout()
         for i, (key, spinbox) in enumerate(self._spinboxs_aberturas.items()):
@@ -794,7 +794,7 @@ class WidgetEdificio(QtWidgets.QWidget):
                 QtCore.Qt.AlignRight
             )
             grid_layout_aberturas.addWidget(spinbox, i, 1)
-        grid_layout_aberturas.setColumnStretch(3, 1)
+        grid_layout_aberturas.setRowStretch(5, 1)
 
         box_aberturas = QtWidgets.QGroupBox('Aberturas')
         box_aberturas.setLayout(grid_layout_aberturas)
@@ -808,8 +808,7 @@ class WidgetEdificio(QtWidgets.QWidget):
             QtWidgets.QLabel('Volumen interno no dividido, V<sub>i</sub>'), 1, 0
         )
         self._grid_layout_reduccion_gcpi.addWidget(self._spinbox_volumen, 1, 1)
-        self._grid_layout_reduccion_gcpi.addWidget(box_aberturas, 2, 0, 1, 2)
-        self._grid_layout_reduccion_gcpi.setRowStretch(3, 1)
+        self._grid_layout_reduccion_gcpi.setRowStretch(2, 1)
 
         box_estructura = QtWidgets.QGroupBox('Geometría')
         box_estructura.setLayout(self._grid_layout_geometria)
@@ -826,10 +825,11 @@ class WidgetEdificio(QtWidgets.QWidget):
 
         layout_principal = QtWidgets.QGridLayout()
         layout_principal.addWidget(box_estructura, 0, 0, 1, 2)
-        layout_principal.addWidget(self._box_reduccion_gcpi, 1, 0, 4, 1)
-        layout_principal.addWidget(self._categoria, 1, 1)
-        layout_principal.addWidget(box_cerramiento, 2, 1)
-        layout_principal.setRowStretch(3, 1)
+        layout_principal.addWidget(self._box_reduccion_gcpi, 1, 0)
+        layout_principal.addWidget(self._categoria, 2, 0)
+        layout_principal.addWidget(box_cerramiento, 3, 0)
+        layout_principal.addWidget(box_aberturas, 1, 1, 3, 1)
+        layout_principal.setRowStretch(5, 1)
 
         self.setLayout(layout_principal)
         self._cambio_tipo_cubierta()
