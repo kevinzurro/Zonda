@@ -24,7 +24,7 @@ from zonda import __about__, recursos
 build_exe_opciones = dict(
     packages=[
         'numpy.core._methods', 'numpy.lib.format', 'jinja2', 'six', 'appdirs',
-        'packaging', 'asyncio'
+        'packaging', 'asyncio', 'zonda'
     ],
     excludes=[
         'tkinter', 'PyQt5.QtBluetooth', 'PyQt5.QtNetwork', 'PyQt5.QtNfc',
