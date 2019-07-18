@@ -61,7 +61,7 @@ La versión actual soporta las siguentes características:
 ![Topografía](https://i.imgur.com/5BZkymL.png)
 
 ## Instalar
-Descargá el instalador de [acá](https://github.com/efdiloreto/Zonda/releases/download/0.1.0/Zonda-0.1.0-win32.msi). Ejecutalo y elegí la carpeta donde quieras que se instale. Una vez instalado, anda a la carpeta elegida y ejecutá _Zonda.exe_.
+Descargá el instalador de [acá](https://github.com/efdiloreto/Zonda/releases). Ejecutalo y elegí la carpeta donde quieras que se instale. Una vez instalado, anda a la carpeta elegida y ejecutá _Zonda.exe_.
 Para desintalarlo podes usar el mismo instalador o simplemente eliminar la carpeta elegida.
 
 ## Colaborar
