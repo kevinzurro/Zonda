@@ -70,7 +70,7 @@ class WidgetViento(QtWidgets.QWidget):
             ('Mendoza', 39),
             ('Neuquén', 48),
             ('Paraná', 52),
-            ('Posada', 45),
+            ('Posadas', 45),
             ('Rawson', 60),
             ('Resistencia', 45),
             ('Río Gallegos', 60),
